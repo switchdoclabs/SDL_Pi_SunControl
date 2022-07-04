@@ -10,24 +10,21 @@
 # Connect a Grove Cable from Grove I2C on SunControl to an I2C Port on Pi2Grover (Grove hat for the Raspberry Pi)
 # Connect a Grove Cable from Grove USB Control on SunControl to  D21/D26 on Pi2Grover (Grove hat for the Raspberry Pi)
 
-
 # imports
 
 import sys
-
-
 import time
 import datetime
-import random 
+import random
 import SDL_Pi_SunControl
 
 # Main Program
 
-print ""
-print "Test SDL_Pi_SunControl Version 1.0 - SwitchDoc Labs"
-print ""
-print "Program Started at:"+ time.strftime("%Y-%m-%d %H:%M:%S")
-print ""
+print("")
+print("Test SDL_Pi_SunControl Version 1.0 - SwitchDoc Labs")
+print("")
+print("Program Started at:"+ time.strftime("%Y-%m-%d %H:%M:%S"))
+print("")
 
 # configuration
 
@@ -44,84 +41,74 @@ starttime = datetime.datetime.utcnow()
 
 sunControl = SDL_Pi_SunControl.SDL_Pi_SunControl(INA3221Address=INA3221Address, USBControlEnable=Pin_USBControlEnable, USBControlControl=Pin_USBControlControl, WatchDog_Done = Pin_WatchDog_Done, WatchDog_Wake=Pin_WatchDog_Wake)
 
-
-
 while True:
+    print("------------------------------")
+    print("SunControl Voltages and Currents")
+    print("------------------------------")
 
-  	print "------------------------------"
-	print "SunControl Voltages and Currents"
-  	print "------------------------------"
+    # set Label
+    myLabel = "LIPO_Battery"
+    print("%s Load Voltage :\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_LIPO_BATTERY_CHANNEL)))
+    print("%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_LIPO_BATTERY_CHANNEL)))
+    print()
 
-        # set Label
-	myLabel = "LIPO_Battery"
+    # set Label
+    myLabel = "Solar Cell"
+    print("%s Load Voltage :\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_SOLAR_CELL_CHANNEL)))
+    print("%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_SOLAR_CELL_CHANNEL)))
+    print()
 
-  	print "%s Load Voltage :\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_LIPO_BATTERY_CHANNEL))
-  	print "%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_LIPO_BATTERY_CHANNEL))
-  	print
+    # set Label
+    myLabel = "Output"
+    print("%s Load Voltage :\t\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_OUTPUT_CHANNEL)))
+    print("%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_OUTPUT_CHANNEL)))
+    print()
 
-        # set Label
-	myLabel = "Solar Cell"
+    #
+    time.sleep(2.0)
 
-  	print "%s Load Voltage :\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_SOLAR_CELL_CHANNEL))
-  	print "%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_SOLAR_CELL_CHANNEL))
-  	print 
+    # Turn the USB Power Off
+    sunControl.setUSBControl(True)
+    sunControl.setUSBEnable(True)
+    sunControl.setUSBControl(False)
 
-        
-	# set Label
-	myLabel = "Output"
-  
-  	print "%s Load Voltage :\t\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_OUTPUT_CHANNEL))
-  	print "%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_OUTPUT_CHANNEL))
-  	print
-		
+    print("------")
+    print("USB Power turned OFF")
+    print("------")
 
-	#
-	time.sleep(2.0)
+    time.sleep(5.0)
 
-	# Turn the USB Power Off
-	sunControl.setUSBControl(True)
-	sunControl.setUSBEnable(True)
-	sunControl.setUSBControl(False)
+    # set Label
+    print("------------------------------")
+    print("SunControl Voltages and Currents")
+    print("------------------------------")
 
-	print "------"
-	print "USB Power turned OFF"
-	print "------"
+    myLabel = "LIPO_Battery"
 
-	time.sleep(5.0)
+    print("%s Load Voltage :\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_LIPO_BATTERY_CHANNEL)))
+    print("%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_LIPO_BATTERY_CHANNEL)))
+    print()
 
-        # set Label
-  	print "------------------------------"
-	print "SunControl Voltages and Currents"
-  	print "------------------------------"
+    # set Label
+    myLabel = "Solar Cell"
 
-	myLabel = "LIPO_Battery"
+    print("%s Load Voltage :\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_SOLAR_CELL_CHANNEL)))
+    print("%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_SOLAR_CELL_CHANNEL)))
+    print()
 
-  	print "%s Load Voltage :\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_LIPO_BATTERY_CHANNEL))
-  	print "%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_LIPO_BATTERY_CHANNEL))
-  	print
+    # set Label
+    myLabel = "Output"
 
-        # set Label
-	myLabel = "Solar Cell"
+    print("%s Load Voltage :\t\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_OUTPUT_CHANNEL)))
+    print("%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_OUTPUT_CHANNEL)))
 
-  	print "%s Load Voltage :\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_SOLAR_CELL_CHANNEL))
-  	print "%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_SOLAR_CELL_CHANNEL))
-  	print 
+    time.sleep(2.0)
 
-        
-	# set Label
-	myLabel = "Output"
-  
-  	print "%s Load Voltage :\t\t  %3.2f V" % (myLabel, sunControl.readChannelVoltageV(SDL_Pi_SunControl.SunControl_OUTPUT_CHANNEL))
-  	print "%s Current :\t\t  %3.2f mA" % (myLabel, sunControl.readChannelCurrentmA(SDL_Pi_SunControl.SunControl_OUTPUT_CHANNEL))
+    print("------")
+    print("USB Power turned ON")
+    print("------")
 
-	time.sleep(2.0)
+    sunControl.setUSBControl(True)
+    sunControl.setUSBEnable(True)
 
-	print "------"
-	print "USB Power turned ON"
-	print "------"
-
-	sunControl.setUSBControl(True)
-	sunControl.setUSBEnable(True)
-
-	time.sleep(5.0)
-
+    time.sleep(5.0)
